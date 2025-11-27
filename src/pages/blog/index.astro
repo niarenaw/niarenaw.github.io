@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Fetch and filter posts
+const allPosts = await getCollection('blog', ({ data }) => {
+  // Show drafts in dev, hide in production
+  return import.meta.env.PROD ? !data.draft : true;
+});
+
+// Sort by pubDate descending (newest first)
+const posts = allPosts.sort((a, b) =>
+  b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Date formatter
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title="Blog - Nia Renaw"
+  description="Technical blog posts about software engineering, programming, and technology."
+>
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold mb-8 text-[var(--color-accent)]">Blog</h1>
+
+    {posts.length === 0 ? (
+      <p class="text-[var(--color-text-muted)]">No posts yet. Check back soon!</p>
+    ) : (
+      <ul class="space-y-4">
+        {posts.map((post) => (
+          <li>
+            <a
+              href={`/blog/${post.id}`}
+              class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 group"
+            >
+              <time
+                datetime={post.data.pubDate.toISOString()}
+                class="text-sm text-[var(--color-text-muted)] shrink-0"
+              >
+                {dateFormat.format(post.data.pubDate)}
+              </time>
+              <span class="text-[var(--color-text-muted)] hidden sm:inline">—</span>
+              <span class="group-hover:text-[var(--color-accent)] transition-colors">
+                {post.data.title}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</BaseLayout>

@@ -1,0 +1,37 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  needsMath?: boolean;
+}
+
+const { title, description, needsMath = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} needsMath={needsMath} />
+    <script is:inline>
+      // Apply dark mode immediately to prevent flash
+      if (
+        localStorage.theme === 'dark' ||
+        (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-1 px-6 py-8">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,12 @@
+---
+import SocialLinks from './SocialLinks.astro';
+---
+
+<footer class="py-8 px-6 border-t border-[var(--color-border)]">
+  <div class="max-w-2xl mx-auto flex flex-col items-center gap-4">
+    <SocialLinks />
+    <p class="text-sm text-[var(--color-text-muted)]">
+      &copy; {new Date().getFullYear()} Nich Arena. All rights reserved.
+    </p>
+  </div>
+</footer>
