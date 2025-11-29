@@ -1,14 +1,12 @@
 ---
 title: "Quantum Counterfeit Coins"
 description: "A quantum algorithm for the counterfeit coin problem using Bernstein-Vazirani, achieving O(1) query complexity vs classical O(log N)."
-pubDate: 2025-11-27
+pubDate: 2025-10-28
 ---
 
 Quantum algorithms that provably outperform classical ones are rare. Most require specific problem structures or unproven complexity assumptions. The counterfeit coin problem is different: simple to state, and the quantum speedup is unconditional - $O(1)$ queries versus $O(\log N)$ classically.
 
 This post covers the problem, classical solution, and a detailed walkthrough of the quantum algorithm with full Dirac notation and my Cirq implementation.
-
-*Prerequisites: Familiarity with Dirac notation, quantum gates (Hadamard, CNOT), and the concept of superposition. A first course in quantum computing is sufficient.*
 
 ## The Counterfeit Coin Problem
 

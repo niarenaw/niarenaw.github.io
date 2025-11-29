@@ -1,61 +1,65 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 // Fetch and filter posts
-const allPosts = await getCollection('blog', ({ data }) => {
-  // Show drafts in dev, hide in production
-  return import.meta.env.PROD ? !data.draft : true;
+const allPosts = await getCollection("blog", ({ data }) => {
+    // Show drafts in dev, hide in production
+    return import.meta.env.PROD ? !data.draft : true;
 });
 
 // Sort by pubDate descending (newest first)
-const posts = allPosts.sort((a, b) =>
-  b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+const posts = allPosts.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
 // Date formatter
-const dateFormat = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
+const dateFormat = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
 });
 ---
 
 <BaseLayout
-  title="Blog - Nia Renaw"
-  description="Technical blog posts about software engineering, programming, and technology."
+    title="Nich - Blog"
+    description="Blog posts about my learnings - mostly math."
 >
-  <div class="max-w-2xl mx-auto">
-    <h1 class="text-3xl font-bold mb-8 text-[var(--color-accent)]">Blog</h1>
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8 text-[var(--color-accent)]">Blog</h1>
 
-    {posts.length === 0 ? (
-      <p class="text-[var(--color-text-muted)]">No posts yet. Check back soon!</p>
-    ) : (
-      <ul class="grid grid-cols-[auto_auto_1fr] items-baseline gap-x-3 gap-y-4">
-        {posts.map((post) => (
-          <li class="contents group">
-            <svg
-              class="w-3 h-3 text-[var(--color-accent)] self-center"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M12 0L13.5 9L24 12L13.5 15L12 24L10.5 15L0 12L10.5 9L12 0Z" />
-            </svg>
-            <time
-              datetime={post.data.pubDate.toISOString()}
-              class="text-[var(--color-text-muted)]"
-            >
-              {dateFormat.format(post.data.pubDate)}
-            </time>
-            <a
-              href={`/blog/${post.id}`}
-              class="group-hover:text-[var(--color-accent)] transition-colors"
-            >
-              {post.data.title}
-            </a>
-          </li>
-        ))}
-      </ul>
-    )}
-  </div>
+        {
+            posts.length === 0 ? (
+                <p class="text-[var(--color-text-muted)]">
+                    No posts yet. Check back soon!
+                </p>
+            ) : (
+                <ul class="grid grid-cols-[auto_auto_1fr] items-baseline gap-x-3 gap-y-4">
+                    {posts.map((post) => (
+                        <li class="contents group">
+                            <svg
+                                class="w-3 h-3 text-[var(--color-accent)] self-center"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <path d="M12 0L13.5 9L24 12L13.5 15L12 24L10.5 15L0 12L10.5 9L12 0Z" />
+                            </svg>
+                            <time
+                                datetime={post.data.pubDate.toISOString()}
+                                class="text-[var(--color-text-muted)]"
+                            >
+                                {dateFormat.format(post.data.pubDate)}
+                            </time>
+                            <a
+                                href={`/blog/${post.id}`}
+                                class="group-hover:text-[var(--color-accent)] transition-colors"
+                            >
+                                {post.data.title}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            )
+        }
+    </div>
 </BaseLayout>
