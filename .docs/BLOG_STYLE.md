@@ -7,7 +7,7 @@
 ## Tone & Voice
 
 - **Direct and confident** - no hedging or excessive caveats
-- **Conversational but technical** - "Here's the connection:", "Watch the ordinals:", "Let me explain"
+- **Conversational but technical** - engage the reader without tutorial-speak
 - **Show the work** - full notation, don't skip steps
 - **Honest about limitations** - note assumptions where relevant
 - **No fluff** - dive into substance quickly
@@ -69,6 +69,38 @@
 - No over-engineering explanations for simple concepts
 - No apologetic language ("I'll try to explain...")
 - No time estimates or schedules
+
+## Avoiding AI-Like Patterns
+
+These patterns are common in AI-generated text and should be avoided or rewritten.
+
+### Phrases to avoid
+
+| Pattern | Problem | Fix |
+|---------|---------|-----|
+| "Let's explore..." / "Let me explain..." | Tutorial-speak | Just explain it directly |
+| "Here's the thing:" / "Here's what..." | Filler before content | Delete and start with the content |
+| "The key insight is..." / "The key is..." | Overused framing | "It turns out..." or just state the insight |
+| "This is the famous X" | Unnecessary hype | "This is X" |
+| "Now comes the key step" | Filler | "Next" or just proceed |
+| "beautifully illustrates" | AI superlative | "illustrates" or "shows" |
+
+### Structural patterns to avoid
+
+- **Over-parallel lists** - numbered lists where every item is `**Bold label** - explanation`. Vary the structure or convert to prose.
+- **Rhetorical question + immediate answer** - "How does this work? Here's the answer:" Just explain it.
+- **Label: explanation** pattern in prose - "The connection: we encode..." becomes "We encode..."
+  - Exception: colons are fine before code blocks, math, or step-by-step proofs
+
+### Code style
+
+- **No periods at end of single-line docstrings** - `"""Convert n to base b"""` not `"""Convert n to base b."""`
+- **No comma formatting in numbers** - use `{n}` not `{n:,}`, output `2352161` not `2,352,161`
+- Comments in code should be terse fragments, not sentences
+
+### Numbers in prose and math
+
+- **No comma separators** - write `10000` not `10,000`, use `$10^{121210694}$` not `$10^{121,210,694}$`
 
 ## Example Post Structure
 

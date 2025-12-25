@@ -37,11 +37,11 @@ In 2010, Iwama, Nishimura, Raymond, and Teruyama showed something remarkable: a 
 
 For 16 coins or 16 billion coins, you need just one quantum query to the balance. Classical binary search requires $O(\log N)$ queries; the quantum algorithm needs $O(1)$.
 
-The key insight is that the counterfeit coin problem can be reformulated as an instance of the **Bernstein-Vazirani problem**, which quantum computers solve in a single query.
+It turns out the counterfeit coin problem can be reformulated as an instance of the **Bernstein-Vazirani problem**, which quantum computers solve in a single query.
 
 ## The Bernstein-Vazirani Algorithm
 
-Before diving into counterfeit coins, let's understand Bernstein-Vazirani.
+First, some background on Bernstein-Vazirani.
 
 ### The Problem
 
@@ -59,7 +59,7 @@ where $s \in \{0,1\}^n$ is an unknown secret string, find $s$ using as few queri
 
 ### Why Does This Matter for Coins?
 
-Here's the connection: we can encode the counterfeit coin's position as a secret string. If the counterfeit is at position $k$, let $s = e_k$ (the string with a 1 only at position $k$). Then:
+We can encode the counterfeit coin's position as a secret string. If the counterfeit is at position $k$, let $s = e_k$ (the string with a 1 only at position $k$). Then:
 
 $$
 f(x) = x \cdot e_k = x_k
@@ -69,7 +69,7 @@ The function tells us whether coin $k$ is in our query or not. The quantum balan
 
 ## The Quantum Algorithm
 
-Now let's build up the quantum solution step by step.
+The quantum solution builds up in four steps.
 
 ### Setup
 
@@ -109,7 +109,7 @@ circuit = cirq.Circuit(cirq.H.on_each(*qbs[:-1]))
 
 ### Step 2: Filter for Even-Weight Strings
 
-Here's a subtlety: we need our superposition to contain only strings with **even Hamming weight** (even number of 1s).
+There's a subtlety here. We need our superposition to contain only strings with **even Hamming weight** (even number of 1s).
 
 Why? This constraint comes from the mathematical structure of the algorithm, not from physical balance requirements. The Bernstein-Vazirani reduction requires the query strings to form a subspace where the inner product properties work out correctly. Even-weight strings form exactly such a subspace - they're closed under XOR and have the right interference properties for the final Hadamard transform to reveal the secret.
 
@@ -143,7 +143,7 @@ $$
 
 ### Step 3: The Quantum Oracle (Balance Query)
 
-Now comes the key step. We query the quantum balance using the Bernstein-Vazirani oracle. This is implemented as a controlled sub-circuit that only runs if our parity check succeeded:
+Next we query the quantum balance using the Bernstein-Vazirani oracle. This is implemented as a controlled sub-circuit that only runs if our parity check succeeded:
 
 ```python
 sub_circuit = cirq.Circuit()
@@ -152,7 +152,7 @@ sub_circuit.append(cirq.CNOT(qbs[m], qbs[n]))
 sub_circuit.append(cirq.H.on_each(*qbs[:-1]))
 ```
 
-Let me explain what's happening mathematically.
+Breaking this down mathematically.
 
 #### Preparing the Ancilla
 
@@ -176,7 +176,7 @@ $$
 |x\rangle |-\rangle \xrightarrow{U_f} |x\rangle |{-} \oplus x_m\rangle = (-1)^{x_m} |x\rangle |-\rangle
 $$
 
-This is the famous **phase kickback** trick! The oracle flips the ancilla when $x_m = 1$, but because the ancilla is in the $|-\rangle$ state, this manifests as a phase flip on the input register.
+This is **phase kickback**. The oracle flips the ancilla when $x_m = 1$, but because the ancilla is in the $|-\rangle$ state, this manifests as a phase flip on the input register.
 
 After the oracle:
 
@@ -220,7 +220,7 @@ Wait - this is a superposition over odd-weight strings. How do we find $m$?
 
 ### Step 4: Measurement and Identification
 
-Here's what makes this work: the phases from the oracle create destructive interference that eliminates most terms, leaving the final state concentrated on specific strings that reveal $m$.
+The phases from the oracle create destructive interference that eliminates most terms, leaving the final state concentrated on specific strings that reveal $m$.
 
 When we measure, we get one of two outcomes:
 
@@ -229,9 +229,9 @@ When we measure, we get one of two outcomes:
 
 Both are odd-weight strings (Hamming weight 1 or $n-1$), and both reveal $m$ as the unique bit that differs from the rest.
 
-**Why does this happen?** The key is that the oracle phase $(-1)^{x_m}$ correlates perfectly with bit $m$ across all even-weight basis states. When we apply the final Hadamard transform, constructive interference occurs only for strings where bit $m$ is "special" - either the only 1 or the only 0. All other odd-weight strings destructively cancel.
+**Why does this happen?** The oracle phase $(-1)^{x_m}$ correlates perfectly with bit $m$ across all even-weight basis states. When we apply the final Hadamard transform, constructive interference occurs only for strings where bit $m$ is "special" - either the only 1 or the only 0. All other odd-weight strings destructively cancel.
 
-In practice: measure all qubits, find the bit that differs from the majority.
+In practice, measure all qubits and find the bit that differs from the majority.
 
 ```python
 circuit.append(cirq.CircuitOperation(sub_circuit.freeze()).with_classical_controls("is_even"))
@@ -279,7 +279,7 @@ The counterfeit was at index 7, and we found it with a single oracle query!
 
 ## The Complete Circuit
 
-Here's what the full circuit looks like (for 16 coins):
+The full circuit (for 16 coins):
 
 ```
 0: ───H───@─────────────────────────────────────────────────────────────[...]───M──
@@ -311,7 +311,7 @@ Comparing the quantum and classical approaches:
 
 The quantum algorithm uses $O(1)$ oracle queries but requires $O(N)$ quantum gates to prepare the superposition and compute parity. The 50% success rate means we need an expected 2 runs.
 
-The key speedup is in **query complexity** - the number of times we consult the balance. This is the standard measure for oracle problems, and here quantum computing reduces $O(\log N)$ to $O(1)$.
+The speedup is in **query complexity** - the number of times we consult the balance. This is the standard measure for oracle problems, and here quantum computing reduces $O(\log N)$ to $O(1)$.
 
 *Note: This analysis assumes ideal, noiseless quantum operations. Real quantum hardware introduces errors that would require error correction or multiple trials, but the fundamental query complexity advantage remains.*
 
@@ -326,13 +326,9 @@ This is a quartic speedup, and notably the quantum complexity is independent of 
 
 ## Conclusion
 
-The counterfeit coin problem beautifully illustrates quantum speedup. By recasting a classical search problem as an instance of Bernstein-Vazirani, we reduce the query complexity from logarithmic to constant.
+The counterfeit coin problem illustrates quantum speedup cleanly. By recasting a classical search problem as an instance of Bernstein-Vazirani, we reduce the query complexity from logarithmic to constant.
 
-This isn't just a toy example - it demonstrates fundamental principles:
-
-1. **Superposition** lets us query all possible coin configurations simultaneously
-2. **Phase kickback** encodes the oracle's answer in quantum phases
-3. **Interference** (via Hadamard) extracts the hidden information
+The algorithm demonstrates fundamental principles: superposition lets us query all coin configurations at once, phase kickback encodes the oracle's answer in quantum phases, and interference via the final Hadamard extracts the hidden information.
 
 The speedup here is provable and unconditional - no complexity assumptions required. For anyone interested in quantum computing, the counterfeit coin problem is a clean example of quantum advantage in action.
 
