@@ -4,7 +4,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
 export default defineConfig({
-  site: 'https://niarenaw.github.io',
+  site: 'https://nicharena.com',
   vite: {
     plugins: [tailwindcss()],
   },
