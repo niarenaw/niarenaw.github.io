@@ -228,7 +228,7 @@ For most practical networks (moderate $N$, reasonable utilizations), standard do
 
 | Approach | Time | Space |
 |----------|------|-------|
-| Naive enumeration | $|S(N,M)| = O(N^{M-1})$ | $O(1)$ |
+| Naive enumeration | $\lvert S(N,M) \rvert = O(N^{M-1})$ | $O(1)$ |
 | Buzen's algorithm | $O(NM)$ | $O(N)$ |
 | FFT convolution | $O(NM \log N)$ | $O(N)$ |
 
