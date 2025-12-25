@@ -169,7 +169,7 @@ print(goodstein_sequence(3))
 
 Six steps. Not too bad.
 
-## Where Things Get Interesting: $G(4)$
+## The Sequence $G(4)$
 
 Now try $G(4)$:
 
@@ -265,7 +265,7 @@ Look at the pattern: $b^b + 2b + c$ where $c$ counts down. When $c$ hits zero, t
 
 ## Why It Always Terminates
 
-Despite the explosive growth, every Goodstein sequence reaches zero. The proof uses **ordinal numbers** - a generalization of natural numbers that extends into the transfinite.
+Despite the explosive growth, every Goodstein sequence reaches zero. The proof uses **[ordinal numbers](https://en.wikipedia.org/wiki/Ordinal_number)** - a generalization of natural numbers that extends into the transfinite.
 
 ### The Key Idea: An Ordinal Shadow
 
@@ -363,15 +363,15 @@ So:
 3. Therefore the sequence must reach ordinal $0$
 4. When the ordinal is $0$, the value is $0$ $\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\blacksquare$
 
-### The Catch: Transfinite Induction
+### Beyond Peano Arithmetic
 
-The proof above uses induction on ordinals up to $\varepsilon_0$. This is called **transfinite induction**, and it's more powerful than ordinary mathematical induction on natural numbers.
+The proof above uses induction on ordinals up to $\varepsilon_0$. This is called **[transfinite induction](https://en.wikipedia.org/wiki/Transfinite_induction)**, and it's more powerful than ordinary mathematical induction on natural numbers.
 
 In 1982, Laurence Kirby and Jeff Paris proved something remarkable:
 
 > **Goodstein's theorem is unprovable in Peano Arithmetic.**
 
-Peano Arithmetic (PA) is the standard axiom system for natural numbers. It captures everything we normally think of as "arithmetic" - addition, multiplication, induction over natural numbers.
+[Peano Arithmetic](https://en.wikipedia.org/wiki/Peano_axioms) (PA) is the standard axiom system for natural numbers. It captures everything we normally think of as "arithmetic" - addition, multiplication, induction over natural numbers.
 
 But PA can only do induction over $\mathbb{N}$. It cannot express or justify induction up to $\varepsilon_0$. Since that's exactly what the proof requires, Goodstein's theorem lies beyond PA's reach.
 
@@ -389,7 +389,7 @@ To appreciate how fast Goodstein sequences grow, compare them to familiar fast-g
 | Ackermann | $A(n,n)$ | Grows faster than any tower |
 | **Goodstein** | Beyond $\varepsilon_0$ | Grows faster than Ackermann |
 
-The Goodstein function $\mathcal{G}(n)$ (number of steps to termination) eventually dominates every primitive recursive function. It sits at level $\varepsilon_0$ in the [fast-growing hierarchy](https://en.wikipedia.org/wiki/Fast-growing_hierarchy).
+The Goodstein function $\mathcal{G}(n)$ (number of steps to termination) eventually dominates every [primitive recursive function](https://en.wikipedia.org/wiki/Primitive_recursive_function). It sits at level $\varepsilon_0$ in the [fast-growing hierarchy](https://en.wikipedia.org/wiki/Fast-growing_hierarchy).
 
 To put $G(4)$'s termination time in perspective:
 
@@ -407,9 +407,9 @@ They reveal something profound about the foundations of mathematics: some true s
 
 ## Further Reading
 
-- [Goodstein's theorem](https://en.wikipedia.org/wiki/Goodstein's_theorem) on Wikipedia
+- [Goodstein's theorem](https://en.wikipedia.org/wiki/Goodstein%27s_theorem) - the main theorem and proof sketch
 - [Fast-growing hierarchy](https://en.wikipedia.org/wiki/Fast-growing_hierarchy) - where Goodstein functions fit
-- [Googology Wiki](https://googology.fandom.com/wiki/Goodstein_sequence) - for extreme large number enthusiasts
+- [Goodstein sequence](https://googology.fandom.com/wiki/Goodstein_sequence) on Googology Wiki - for large number enthusiasts
 
 ## References
 

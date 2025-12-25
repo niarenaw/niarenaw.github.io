@@ -31,7 +31,7 @@ Binary search is remarkably efficient, and it's provably optimal for classical a
 
 **But what if the balance scale is quantum?**
 
-## Enter Quantum Computing
+## Quantum Approach
 
 In 2010, Iwama, Nishimura, Raymond, and Teruyama showed something remarkable: a quantum algorithm can find the counterfeit coin in $O(1)$ weighings - **independent of the number of coins**.
 
@@ -334,7 +334,9 @@ The speedup here is provable and unconditional - no complexity assumptions requi
 
 ## Further Reading
 
-For a comprehensive catalog of quantum algorithms with proven speedups, see the [Quantum Algorithm Zoo](https://quantumalgorithmzoo.org/).
+- [Quantum Algorithm Zoo](https://quantumalgorithmzoo.org/) - comprehensive catalog of quantum algorithms with proven speedups
+- [Bernstein-Vazirani algorithm](https://en.wikipedia.org/wiki/Bernstein%E2%80%93Vazirani_algorithm) - the underlying quantum algorithm
+- [Quantum counting](https://en.wikipedia.org/wiki/Quantum_counting_algorithm) - related quantum search techniques
 
 ## References
 
