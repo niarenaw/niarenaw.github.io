@@ -1,5 +1,12 @@
 # Claude Code Instructions
 
+## Project Structure
+
+- **`.docs/`** - Internal documentation (style guides, codebase notes). See `BLOG_STYLE.md` for blog writing conventions.
+- **`.plans/`** - Master plans and implementation plans. Naming convention:
+  - Master plans: `###-MP.md` (e.g., `001-MP.md`, `002-MP.md`)
+  - Implementation plans: `###-IP.md` (e.g., `001-IP.md`, `002-IP.md`)
+
 ## Blog Posts
 
 When writing technical blog posts:
