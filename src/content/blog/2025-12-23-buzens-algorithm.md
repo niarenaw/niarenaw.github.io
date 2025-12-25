@@ -12,7 +12,7 @@ Fifty jobs circulating among ten servers can occupy over 12 billion distinct con
 
 A single queue has jobs arriving at rate $\lambda$ (lambda) and a server processing them at rate $\mu$ (mu). The ratio $\rho = \lambda/\mu$ is the **utilization** - the fraction of time the server is busy. For stability, $\rho < 1$; otherwise jobs accumulate faster than they're served.
 
-The simplest model is the **M/M/1 queue**: Poisson arrivals (memoryless, hence "M"), exponential service times (also "M"), and one server. In steady state, the probability of having exactly $k$ jobs in the system is:
+The simplest model is the **[M/M/1 queue](https://en.wikipedia.org/wiki/M/M/1_queue)**: [Poisson arrivals](https://en.wikipedia.org/wiki/Poisson_point_process) (memoryless, hence "M"), exponential service times (also "M"), and one server. In steady state, the probability of having exactly $k$ jobs in the system is:
 
 $$P(k) = (1-\rho)\rho^k$$
 
@@ -62,8 +62,8 @@ Direct enumeration iterates over every state in $S(N,M)$, computes $\prod X_i^{k
 
 $$|S(N,M)| = \binom{N + M - 1}{M - 1}$$
 
-| Network | States | Naive Operations |
-|---------|--------|-----------------|
+| Network | States | Time |
+|---------|--------|------|
 | $N=10$, $M=5$ | 1001 | $\sim 10^3$ |
 | $N=50$, $M=5$ | 316251 | $\sim 3 \times 10^5$ |
 | $N=20$, $M=10$ | $\sim 10^7$ | $\sim 10^7$ |
@@ -73,7 +73,7 @@ A network of 10 queues and 50 jobs requires iterating over tens of billions of s
 
 The structure of the sum suggests redundancy. Each term $\prod_i X_i^{k_i}$ shares factors with many others. The sum is essentially an $M$-fold convolution - a hint that dynamic programming might help.
 
-## The Insight
+## Recursive Decomposition
 
 Buzen recognized that $G(N)$ can be computed recursively by adding one queue at a time.
 
@@ -250,13 +250,13 @@ Buzen's algorithm reduces a sum over billions of states to a few hundred multipl
 
 The algorithm exemplifies a broader pattern: when a massive sum has product structure, dynamic programming often finds a shortcut. Here, the product-form solution of Gordon-Newell networks provides exactly that structure. What looks like an intractable enumeration problem becomes $O(NM)$ arithmetic.
 
-For practitioners in the 1970s, this was transformative. Closed queueing networks had elegant theory but were computationally useless until Buzen's algorithm made them practical. The same ideas - convolution, dynamic programming, exploiting algebraic structure - appear throughout performance modeling, from Mean Value Analysis to modern cloud capacity planning.
+For practitioners in the 1970s, this was transformative. Closed queueing networks had elegant theory but were computationally useless until Buzen's algorithm made them practical. The same ideas - convolution, dynamic programming, exploiting algebraic structure - appear throughout performance modeling, from [Mean Value Analysis](https://en.wikipedia.org/wiki/Mean_value_analysis) to modern cloud capacity planning.
 
 ## Further Reading
 
-- [Wikipedia: Buzen's algorithm](https://en.wikipedia.org/wiki/Buzen%27s_algorithm) - derivation and pseudocode
-- [Wikipedia: Jackson network](https://en.wikipedia.org/wiki/Jackson_network) - open network theory
-- [Wikipedia: Gordon-Newell theorem](https://en.wikipedia.org/wiki/Gordon%E2%80%93Newell_theorem) - closed network product form
+- [Buzen's algorithm](https://en.wikipedia.org/wiki/Buzen%27s_algorithm) - derivation and pseudocode
+- [Jackson network](https://en.wikipedia.org/wiki/Jackson_network) - open network theory
+- [Gordon-Newell theorem](https://en.wikipedia.org/wiki/Gordon%E2%80%93Newell_theorem) - closed network product form
 
 ## References
 
