@@ -6,7 +6,7 @@ pubDate: 2025-11-28
 
 Some theorems feel like magic tricks. Goodstein sequences are one of them: take any positive integer, apply a simple recursive rule, and watch the numbers explode - growing faster than exponentials, faster than towers of exponentials, faster than any primitive recursive function. The sequence appears to diverge to infinity.
 
-Yet every Goodstein sequence terminates at zero. Always. And here's the twist: this fact cannot be proven using the standard axioms of arithmetic.
+Yet every Goodstein sequence terminates at zero. Always. And the twist... this fact cannot be proven using the standard axioms of arithmetic.
 
 This post walks through the construction, implements it in Python, and sketches the ordinal-theoretic proof of termination.
 
@@ -74,7 +74,7 @@ Converting a number to hereditary form:
 
 ```python
 def to_hereditary(n: int, base: int) -> list[Term]:
-    """Convert n to hereditary base-b representation."""
+    """Convert n to hereditary base-b representation"""
     if n == 0:
         return []
 
@@ -102,7 +102,7 @@ Evaluating a hereditary representation in a new base (after the "bump"):
 
 ```python
 def evaluate(terms: list[Term], base: int) -> int:
-    """Evaluate hereditary representation in given base."""
+    """Evaluate hereditary representation in given base"""
     total = 0
     for term in terms:
         if not term.exp:  # Exponent is 0, so base^0 = 1
@@ -117,7 +117,7 @@ Now the Goodstein step - bump the base and subtract:
 
 ```python
 def goodstein_step(n: int, base: int) -> int:
-    """One step: convert to hereditary base, bump to base+1, subtract 1."""
+    """One step: convert to hereditary base, bump to base+1, subtract 1"""
     hereditary = to_hereditary(n, base)
     bumped = evaluate(hereditary, base + 1)
     return bumped - 1
@@ -127,7 +127,7 @@ And the full sequence generator:
 
 ```python
 def goodstein_sequence(start: int, max_steps: int = 100) -> list[int]:
-    """Generate Goodstein sequence starting from n."""
+    """Generate Goodstein sequence starting from n"""
     seq = [start]
     base = 2
 
@@ -140,7 +140,7 @@ def goodstein_sequence(start: int, max_steps: int = 100) -> list[int]:
 
 ## A Complete Example: $G(3)$
 
-Let's trace through $G(3)$ step by step to see the mechanics.
+Tracing through $G(3)$ step by step:
 
 **Step 0:** Start with $3$ in hereditary base-$2$:
 $$3 = 2^1 + 2^0 = 2^1 + 1$$
@@ -179,29 +179,29 @@ print(seq)
 # [4, 26, 41, 60, 83, 109, 139, 173, 211, 253, 299, 348, 401, 458, 519, 584, 653, 726, 803, 884]
 ```
 
-It's increasing. Let's see more:
+It's increasing. More steps:
 
 ```python
 seq = goodstein_sequence(4, max_steps=1000)
-print(f"After 1000 steps: {seq[-1]:,}")
-# After 1000 steps: 2,352,161
+print(f"After 1000 steps: {seq[-1]}")
+# After 1000 steps: 2352161
 ```
 
-Still climbing. At step 10,000, it reaches about 100 million. At step 1,000,000, it has 12 digits. The growth looks roughly quadratic in this phase.
+Still climbing. At step 10000, it reaches about 100 million. At step 1000000, it has 12 digits. The growth looks roughly quadratic in this phase.
 
 But appearances deceive. The sequence $G(4)$ does eventually terminate—after exactly:
 
-$$3 \times 2^{402,653,211} - 3 \text{ steps}$$
+$$3 \times 2^{402653211} - 3 \text{ steps}$$
 
 That's a number with over 121 million digits. The sequence grows to incomprehensible sizes before finally collapsing to zero.
 
 ## Visualizing the Growth
 
-Let's add a helper to print the hereditary form so we can see what's happening structurally:
+A helper to print the hereditary form shows what's happening structurally:
 
 ```python
 def format_hereditary(terms: list[Term], base: int) -> str:
-    """Pretty-print hereditary representation."""
+    """Pretty-print hereditary representation"""
     if not terms:
         return "0"
 
@@ -228,7 +228,7 @@ Now we can watch the structure evolve:
 
 ```python
 def trace_goodstein(start: int, steps: int = 10):
-    """Trace Goodstein sequence showing hereditary forms."""
+    """Trace Goodstein sequence showing hereditary forms"""
     n = start
     base = 2
 
@@ -281,15 +281,15 @@ $$
 \omega^\omega
 $$
 
-Here's the critical observation: **while the numerical values grow, the ordinal shadows strictly decrease**.
+The critical observation is that **while the numerical values grow, the ordinal shadows strictly decrease**.
 
 Why? The base bump ($2 \to 3 \to 4 \to \cdots$) doesn't change the ordinal - $\omega$ stays $\omega$. But subtracting $1$ always decreases the ordinal representation.
 
-Let's trace the ordinal shadows:
+Tracing the ordinal shadows:
 
 ```python
 def to_ordinal_string(terms: list[Term]) -> str:
-    """Convert hereditary representation to ordinal notation."""
+    """Convert hereditary representation to ordinal notation"""
     if not terms:
         return "0"
 
@@ -314,7 +314,7 @@ def to_ordinal_string(terms: list[Term]) -> str:
 
 ```python
 def trace_with_ordinals(start: int, steps: int = 8):
-    """Show both value and ordinal shadow."""
+    """Show both value and ordinal shadow"""
     n = start
     base = 2
 
@@ -325,7 +325,7 @@ def trace_with_ordinals(start: int, steps: int = 8):
 
         terms = to_hereditary(n, base)
         ordinal = to_ordinal_string(terms)
-        print(f"Step {step}: value = {n:,}, ordinal = {ordinal}")
+        print(f"Step {step}: value = {n}, ordinal = {ordinal}")
 
         n = goodstein_step(n, base)
         base += 1
@@ -361,9 +361,7 @@ So:
 1. Each Goodstein step decreases the ordinal shadow
 2. Ordinal sequences can't decrease forever
 3. Therefore the sequence must reach ordinal $0$
-4. When the ordinal is $0$, the value is $0$
-
-QED.
+4. When the ordinal is $0$, the value is $0$ $\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\blacksquare$
 
 ### The Catch: Transfinite Induction
 
@@ -399,16 +397,11 @@ To put $G(4)$'s termination time in perspective:
 |----------|-----------------|
 | Atoms in observable universe | $10^{80}$ |
 | Planck times since Big Bang | $10^{60}$ |
-| Steps for $G(4)$ to terminate | $10^{121,210,694}$ |
+| Steps for $G(4)$ to terminate | $10^{121210694}$ |
 
 ## Conclusion
 
-Goodstein sequences are a rare mathematical object:
-
-1. **Simple to define** - hereditary base notation and subtraction
-2. **Explosive growth** - faster than any primitive recursive function
-3. **Guaranteed termination** - via ordinal descent
-4. **Unprovable in PA** - requires transfinite induction to $\varepsilon_0$
+Goodstein sequences are a rare mathematical object - simple to define (hereditary base notation and subtraction), with explosive growth faster than any primitive recursive function, yet guaranteed to terminate via ordinal descent. And the termination proof requires transfinite induction to $\varepsilon_0$, placing it beyond Peano Arithmetic.
 
 They reveal something profound about the foundations of mathematics: some true statements about natural numbers can only be proven by reasoning about infinite objects. The finite and the infinite are more entangled than naive intuition suggests.
 
