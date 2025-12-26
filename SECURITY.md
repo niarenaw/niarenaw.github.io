@@ -6,9 +6,9 @@ If you discover a security vulnerability in this project, please report it respo
 
 **Do not open a public GitHub issue for security vulnerabilities.**
 
-Instead, please send an email or contact me directly through one of these channels:
+Instead, please contact me directly:
 
-- GitHub: [@niarenaw](https://github.com/niarenaw)
+- Email: niarenaw@gmail.com
 - LinkedIn: [nicholas-arena](https://linkedin.com/in/nicholas-arena)
 
 ### What to include
