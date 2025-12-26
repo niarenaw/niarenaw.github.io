@@ -1,0 +1,21 @@
+---
+interface Props {
+    title: string;
+    subtitle: string;
+    date?: string;
+}
+
+const { title, subtitle, date } = Astro.props;
+---
+
+<div>
+    <div class="flex justify-between items-baseline gap-x-4">
+        <h3 class="font-medium min-w-0">{title}</h3>
+        {date && (
+            <span class="text-sm text-[var(--color-text-muted)] flex-shrink-0 whitespace-nowrap">
+                {date}
+            </span>
+        )}
+    </div>
+    <p class="text-[var(--color-text-muted)]">{subtitle}</p>
+</div>
