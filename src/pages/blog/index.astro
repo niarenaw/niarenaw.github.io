@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubscribeForm from "../../components/SubscribeForm.astro";
 
 // Fetch and filter posts
 const allPosts = await getCollection("blog", ({ data }) => {
@@ -26,7 +27,10 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
     description="Blog posts about my learnings - mostly math."
 >
     <div class="max-w-2xl mx-auto">
-        <h1 class="text-3xl font-bold mb-8 text-[var(--color-accent)]">Blog</h1>
+        <div class="flex items-center justify-between mb-8">
+            <h1 class="text-3xl font-bold text-[var(--color-accent)]">Noop's Digest</h1>
+            <SubscribeForm />
+        </div>
 
         {
             posts.length === 0 ? (
