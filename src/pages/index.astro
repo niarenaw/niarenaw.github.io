@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TimelineItem from "../components/TimelineItem.astro";
 ---
 
 <BaseLayout
@@ -16,12 +17,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 Technical AI Strategist at <a
                     href="https://www.tenex.co/"
                     class="text-[var(--color-accent)] hover:text-[var(--color-accent-hover)]"
-                    >Tenex</a> and employee #6. Before that, I
-                built image processing software and supported mission ops for
-                Mars rovers and EO missions at NASA JPL, and contributed to HITL
-                test infrastructure for Relativity Space’s Terran-R rocket. I
-                tend to write about math and computer science, and sometimes
-                about food or trail running.
+                    >Tenex</a> and employee #6. Before that, I built image-processing software and supported mission operations at NASA's Jet Propulsion Laboratory. My work there spanned Mars rover missions including Perseverance, Curiosity, and Ingenuity, as well as EO projects such as OPERA, ARIA, and NISAR. I later worked at Relativity Space, where I built HITL test infrastructure for the Terran-R rocket. I tend to write about math and computer science, and occasionally about food or trail running.
             </p>
         </section>
 
@@ -30,53 +26,27 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             <h2 class="text-xl font-semibold mb-4 text-[var(--color-accent)]">
                 Experience
             </h2>
-            <div class="space-y-4">
-                <div>
-                    <div class="flex justify-between items-baseline">
-                        <h3 class="font-medium">Technical AI Strategist</h3>
-                        <span class="text-sm text-[var(--color-text-muted)]"
-                            >2025 - Present</span
-                        >
-                    </div>
-                    <p class="text-[var(--color-text-muted)]">Tenex</p>
-                </div>
-                <div>
-                    <div class="flex justify-between items-baseline">
-                        <h3 class="font-medium">Software Engineer</h3>
-                        <span class="text-sm text-[var(--color-text-muted)]"
-                            >2024 - 2025</span
-                        >
-                    </div>
-                    <p class="text-[var(--color-text-muted)]">
-                        Relativity Space
-                    </p>
-                </div>
-                <div>
-                    <div class="flex justify-between items-baseline">
-                        <h3 class="font-medium">
-                            Scientific Applications Software Engineer
-                        </h3>
-                        <span class="text-sm text-[var(--color-text-muted)]"
-                            >2020 - 2024</span
-                        >
-                    </div>
-                    <p class="text-[var(--color-text-muted)]">
-                        NASA Jet Propulsion Laboratory
-                    </p>
-                </div>
-                <div>
-                    <div class="flex justify-between items-baseline">
-                        <h3 class="font-medium">
-                            Scientific Visualization Intern
-                        </h3>
-                        <span class="text-sm text-[var(--color-text-muted)]"
-                            >2019</span
-                        >
-                    </div>
-                    <p class="text-[var(--color-text-muted)]">
-                        NASA Jet Propulsion Laboratory
-                    </p>
-                </div>
+                <div class="space-y-4">
+                <TimelineItem
+                    title="Technical AI Strategist"
+                    subtitle="Tenex"
+                    date="2025 - Present"
+                />
+                <TimelineItem
+                    title="Software Engineer"
+                    subtitle="Relativity Space"
+                    date="2024 - 2025"
+                />
+                <TimelineItem
+                    title="Scientific Applications Software Engineer"
+                    subtitle="NASA Jet Propulsion Laboratory"
+                    date="2020 - 2024"
+                />
+                <TimelineItem
+                    title="Scientific Visualization Intern"
+                    subtitle="NASA Jet Propulsion Laboratory"
+                    date="2019"
+                />
             </div>
         </section>
 
@@ -86,30 +56,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 Education
             </h2>
             <div class="space-y-4">
-                <div>
-                    <h3 class="font-medium">
-                        M.S. Applied and Computational Mathematics
-                    </h3>
-                    <p class="text-[var(--color-text-muted)]">
-                        Johns Hopkins University
-                    </p>
-                </div>
-                <div>
-                    <h3 class="font-medium">
-                        B.S. Computational and Applied Mathematics
-                    </h3>
-                    <p class="text-[var(--color-text-muted)]">
-                        University of Chicago
-                    </p>
-                </div>
-                <div>
-                    <h3 class="font-medium">
-                        B.S. Computer Science with a Specialization in Theory
-                    </h3>
-                    <p class="text-[var(--color-text-muted)]">
-                        University of Chicago
-                    </p>
-                </div>
+                <TimelineItem
+                    title="M.S. Applied and Computational Mathematics"
+                    subtitle="Johns Hopkins University"
+                />
+                <TimelineItem
+                    title="B.S. Computational and Applied Mathematics"
+                    subtitle="University of Chicago"
+                />
+                <TimelineItem
+                    title="B.S. Computer Science with a Specialization in Theory"
+                    subtitle="University of Chicago"
+                />
             </div>
         </section>
 
