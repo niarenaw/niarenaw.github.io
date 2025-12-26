@@ -1,11 +1,7 @@
 ---
-// Compact inline subscribe form
+// Compact inline subscribe form - submits via JS to stay on page
 ---
-<form
-    action="https://buttondown.email/api/emails/embed-subscribe/nicharena"
-    method="post"
-    class="flex gap-1.5"
->
+<form id="subscribe-form" class="flex gap-1.5">
     <input
         type="email"
         name="email"
@@ -20,3 +16,54 @@
         →
     </button>
 </form>
+
+<script>
+    const form = document.getElementById('subscribe-form');
+    form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = new FormData(form).get('email');
+        const btn = form.querySelector('button');
+        const input = form.querySelector('input');
+
+        btn.textContent = '...';
+        btn.disabled = true;
+
+        try {
+            const res = await fetch('https://buttondown.email/api/emails/embed-subscribe/nicharena', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `email=${encodeURIComponent(email)}&embed=1`
+            });
+
+            if (res.ok) {
+                input.value = '';
+                input.placeholder = 'Subscribed!';
+                input.style.borderColor = 'var(--color-accent)';
+                input.style.color = 'var(--color-accent)';
+                btn.textContent = '✓';
+                btn.style.borderColor = 'var(--color-accent)';
+                btn.style.color = 'var(--color-accent)';
+            } else {
+                btn.textContent = '✗';
+                btn.style.color = '#ef4444';
+                btn.style.borderColor = '#ef4444';
+                setTimeout(() => {
+                    btn.textContent = '→';
+                    btn.disabled = false;
+                    btn.style.color = '';
+                    btn.style.borderColor = '';
+                }, 2000);
+            }
+        } catch {
+            btn.textContent = '✗';
+            btn.style.color = '#ef4444';
+            btn.style.borderColor = '#ef4444';
+            setTimeout(() => {
+                btn.textContent = '→';
+                btn.disabled = false;
+                btn.style.color = '';
+                btn.style.borderColor = '';
+            }, 2000);
+        }
+    });
+</script>

@@ -1,7 +1,7 @@
 ---
 title: "Buzen's Algorithm"
-description: "50 jobs across 10 servers means 12 billion states. Buzen's 1973 algorithm computes exact steady-state probabilities in 500 operations."
-pubDate: 2025-12-24
+description: "12 billion states reduced to 500 operations. How a 1973 algorithm makes closed queueing networks tractable."
+pubDate: 2025-12-23
 ---
 
 Queueing theory studies systems where jobs arrive, wait, get served, and depart. A *queueing network* connects multiple queues - jobs flow from one to the next, like packets through routers or requests through microservices. Analyzing these networks means computing steady-state probabilities: in the long run, what fraction of time does the system spend in each configuration?
